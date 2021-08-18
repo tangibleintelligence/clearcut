@@ -57,7 +57,7 @@ def init_logging():
         logging.Formatter(
             "{asctime} [{levelname:7}] ({shortname:" + str(LOGGER_NAME_LENGTH) + "." + str(LOGGER_NAME_LENGTH) + "}) | {message}",
             style="{",
-        )
+            )
     )
     stream_handler.addFilter(ShortNameFilter())
 
