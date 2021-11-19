@@ -3,6 +3,7 @@ Inits the log framework.
 """
 
 import logging
+import os
 import sys
 import time
 from contextlib import contextmanager
@@ -39,25 +40,36 @@ class ShortNameFilter(logging.Filter):
 
 
 @contextmanager
-def log_block(name: str, logger: logging.Logger):
-    """Allows for easy logging of a block of code, with performance tracked automatically."""
-    logger.info(f"Enter: [{name}]")
+def log_block(name: str, logger: logging.Logger, debug: bool = True):
+    """
+    Allows for easy logging of a block of code, with performance tracked automatically. Logs at debug level, unless debug=False, in which
+    case it logs at info level.
+    """
+    logger_fn = logger.debug if debug else logger.info
+    logger_fn(f"Enter: [{name}]")
 
     start = time.perf_counter()
     yield
 
     duration = time.perf_counter() - start
-    logger.info(f"Exit: [{name}]. Duration: {duration:.1f}s")
+    logger_fn(f"Exit: [{name}]. Duration: {duration:.1f}s")
 
 
 def init_logging():
+    # Was a log level set?
+    try:
+        loglevel = os.environ.get("LOGLEVEL", "INFO").upper()
+        loglevel = getattr(logging, loglevel)
+    except Exception as e:
+        loglevel = logging.INFO
+
     # sysout handler for human-readable
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setFormatter(
         logging.Formatter(
             "{asctime} [{levelname:7}] ({shortname:" + str(LOGGER_NAME_LENGTH) + "." + str(LOGGER_NAME_LENGTH) + "}) | {message}",
             style="{",
-            )
+        )
     )
     stream_handler.addFilter(ShortNameFilter())
 
@@ -66,7 +78,7 @@ def init_logging():
     root_logger.addFilter(ShortNameFilter())
     root_logger.addHandler(stream_handler)
 
-    root_logger.setLevel(logging.INFO)
+    root_logger.setLevel(loglevel)
 
     # Some customizations
     # log some known noisy libraries at warning level
