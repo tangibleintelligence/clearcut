@@ -9,7 +9,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="clearcut",
-    version="0.1.2",
+    version="0.2.0",
     description="A straightforward and lightweight logging wrapper library",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -30,4 +30,5 @@ setup(
     package_dir={"": "src"},  # Optional
     packages=find_packages(where="src"),
     python_requires=">=3.6, <4",
+    # TODO otlp deps, or maybe poetry
 )
