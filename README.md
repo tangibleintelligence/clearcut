@@ -40,6 +40,5 @@ with log_block("block name", logger):
 
 ## TODO
 - Would like to use contextvars to create a contextmanager where additional "metadata" can be specified (and unspecified) which would be
-included with logging automatically.
+included with logging automatically. (may not be import with OTLP tracing.)
 - json logging
-- Integration with a tool like Splunk
