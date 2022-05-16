@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clearcut"
-version = "0.2.0"
+version = "0.2.0.post1"
 description = "A straightforward and lightweight logging and tracing library"
 authors = ["Austin Howard <austin@tangibleintelligence.com>"]
 license = "MIT"
