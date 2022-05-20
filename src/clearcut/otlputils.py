@@ -4,6 +4,7 @@ Inits the OTLP framework.
 TODO should we use the logger instrumenter?
 """
 import asyncio
+import os
 from contextlib import contextmanager
 from functools import wraps
 from typing import Callable, Optional
@@ -20,7 +21,8 @@ from opentelemetry.util.types import AttributeValue, Attributes
 
 def init_tracer_provider():
     provider = TracerProvider()
-    provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+    if "OTEL_EXPORTER_OTLP_ENDPOINT" in os.environ:
+        provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
     trace.set_tracer_provider(provider)
 
     _tracer_provider_inited = True
