@@ -45,6 +45,11 @@ def add_event(name: str, attributes: Attributes = None):
     trace.get_current_span().add_event(name, attributes)
 
 
+def record_exception(exc: Exception, attributes: Attributes = None, escaped: bool = False):
+    """Record an exception to the current span"""
+    trace.get_current_span().record_exception(exc, attributes=attributes, escaped=escaped)
+
+
 @contextmanager
 def context_from_carrier(headers_carrier: CarrierT):
     """Set up OTEL context, and clear it after exiting block"""
