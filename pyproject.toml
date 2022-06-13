@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clearcut"
-version = "0.2.2"
+version = "0.2.2-post0"
 description = "A straightforward and lightweight logging and tracing library"
 authors = ["Austin Howard <austin@tangibleintelligence.com>"]
 license = "MIT"
@@ -23,6 +23,7 @@ opentelemetry-api = "^1.11.1"
 opentelemetry-sdk = "^1.11.1"
 opentelemetry-exporter-otlp-proto-http = "^1.11.1"
 opentelemetry-instrumentation-logging = "^0.30b1"
+more-itertools = "^8.13.0"
 
 [tool.poetry.dev-dependencies]
 
